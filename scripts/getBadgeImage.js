@@ -3,7 +3,7 @@ module.exports = function (badgeName) {
   var value = "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/google/146/penguin_1f427.png";
   switch (badgeName) {
     case "Peepeth":
-      value = 0;
+      value = "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/google/146/penguin_1f427.png";
       break;
     case "WellWisher":
       value = "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/mozilla/36/waving-hand-sign_1f44b.png";       

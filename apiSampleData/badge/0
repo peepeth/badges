@@ -3,15 +3,15 @@
     "attributes": [
       {
         "trait_type": "Badge", 
-        "value": "KingPenguin"
+        "value": "Peepeth"
       },
       {
         "trait_type": "Era", 
         "value": "CrowdFunding 2018"
       }
     ], 
-    "description": "KingPenguin badge.", 
+    "description": "Peepeth badge.", 
     "external_url": "https://peepeth.com/a/crowdfunding", 
-    "image": "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/google/146/penguin_1f427.png", 
-    "name": "KingPenguin badge"
+    "image": "0", 
+    "name": "Peepeth badge"
   }

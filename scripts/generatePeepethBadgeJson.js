@@ -1,3 +1,5 @@
+var getBadgeImage = require('./getBadgeImage.js')
+
 // export module
 module.exports = function (badge, number) {
     return `
@@ -5,16 +7,16 @@ module.exports = function (badge, number) {
     "attributes": [
       {
         "trait_type": "Badge", 
-        "value": "Authenticity"
+        "value": "${badge.badge}"
       },
       {
         "trait_type": "Era", 
         "value": "CrowdFunding 2018"
       }
     ], 
-    "description": "Authenticity badge.\n📜 Legacy message (your name, link, and message on blockchain)\n🔖 Bookmark peeps\n🔗 Including a link doesn't count towards the 280-char limit", 
+    "description": "${badge.badge} badge.", 
     "external_url": "https://peepeth.com/a/crowdfunding", 
-    "image": "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/mozilla/36/gem-stone_1f48e.png", 
-    "name": "Authenticity badge"
+    "image": "${getBadgeImage(badge.badge)}", 
+    "name": "${badge.badge} badge"
   }`
 }

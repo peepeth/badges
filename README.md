@@ -1,3 +1,20 @@
+# Peepeth Badges
+
+Generate json
+```
+node scripts/generatePeepethBadgesJson.js
+```
+
+Deploy contract to testnet
+``` 
+truffle migrate --reset --network rinkeby
+```
+
+Mint badges to testnet
+```
+truffle exec scripts/mintPeepethBadges.js --network rinkeby
+```
+
 # Benefits
 
 ## Contributor benefits

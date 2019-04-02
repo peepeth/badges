@@ -6,23 +6,22 @@ import "openzeppelin-solidity/contracts/access/roles/MinterRole.sol";
 contract PeepethBadges is ERC721Full, MinterRole {
   
   enum Badges {
-    Peepeth,
-    PeepethGold, 
-    WellWisher, 
-    Authenticity, 
-    Upholder, 
-    Creativity, 
-    Freedom, 
-    Peace, 
-    Transcendence, 
-    Honor, 
-    Sponsor, 
-    MegaSponsor, 
-    Penguin, 
-    GentooPenguin, 
-    KingPenguin, 
-    EmperorPenguin, 
-    LittlePenguin
+    Peepeth,        // 0
+    WellWisher,     // 1
+    Authenticity,   // 2
+    Upholder,       // 3
+    Creativity,     // 4
+    Freedom,        // 5
+    Peace,          // 6
+    Transcendence,  // 7
+    Honor,          // 8
+    Sponsor,        // 9
+    MegaSponsor,    // 10
+    Penguin,        // 11
+    GentooPenguin,  // 12
+    KingPenguin,    // 13
+    EmperorPenguin, // 14
+    LittlePenguin   // 15
   }
 
   // Mapping from token ID to badge

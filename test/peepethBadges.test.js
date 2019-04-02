@@ -3,10 +3,11 @@ const PeepethBadges = artifacts.require('PeepethBadges')
 
 contract('PeepethBadges', function([minter, anotherAccount]) {
   let horses
-  let name = "Peepeth Badges";
-  let symbol = "PB";
-  let baseTokenUri = "https://peepeth.com/badges/api/badge/";
-  
+  const name = "Peepeth Badges";
+  const symbol = "PB";
+  const baseTokenUri = "https://abcoathup.github.io/badges/api/badge/";
+  const badgeCount = 16
+
   beforeEach(async function() {
     peepethBadges = await PeepethBadges.new({ from: minter })
   });
@@ -40,22 +41,22 @@ contract('PeepethBadges', function([minter, anotherAccount]) {
     });
 
     it('mint multiple tokens', async function() {
-      for (var i=0; i < 10; i++) {
+      for (var i=0; i < badgeCount; i++) {
         await peepethBadges.mintWithTokenURI(anotherAccount, i + 1, i, `${baseTokenUri}${i + 1}`);
       }
       
       const _totalSupply = await peepethBadges.totalSupply();
-      assert.equal(10, _totalSupply);
+      assert.equal(badgeCount, _totalSupply);
       const minterBalance = await peepethBadges.balanceOf(minter);
       assert.equal(0, minterBalance);
       anotherAccountBalance = await peepethBadges.balanceOf(anotherAccount);
-      assert.equal(10, anotherAccountBalance);
+      assert.equal(badgeCount, anotherAccountBalance);
 
       var _owner;
       var _tokenUri;
       var _tokenbadge
-      for (var i=0; i < 10; i++) {
-        _owner = await peepethBadges.ownerOf(10);
+      for (var i=0; i < badgeCount; i++) {
+        _owner = await peepethBadges.ownerOf(badgeCount);
         assert.equal(anotherAccount, _owner);
         _tokenUri = await peepethBadges.tokenURI(i + 1);
         assert.equal(`${baseTokenUri}${i + 1}`, _tokenUri);
@@ -64,6 +65,10 @@ contract('PeepethBadges', function([minter, anotherAccount]) {
       }
     });
 
+    it.skip('cannot mint a token for a non-existant badge', async function() {
+      await shouldFail.reverting(peepethBadges.mintWithTokenURI(anotherAccount, 1, badgeCount, `${baseTokenUri}1`));
+    });
+    
     it('non-minter cannot mint a token', async function() {
       await shouldFail.reverting(peepethBadges.mintWithTokenURI(anotherAccount, 1, 0, `${baseTokenUri}1`, { from: anotherAccount }));
     })

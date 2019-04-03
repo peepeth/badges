@@ -1,9 +1,9 @@
 // export module
 module.exports = function (badgeName) {
-  var value = "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/google/146/penguin_1f427.png";
+  var value = "http://openmoji.org/data/color/svg/1F427.svg";
   switch (badgeName) {
     case "Peepeth":
-      value = "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/google/146/penguin_1f427.png";
+      value = "http://openmoji.org/data/color/svg/1F427.svg";
       break;
     case "WellWisher":
       value = "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/mozilla/36/waving-hand-sign_1f44b.png";       

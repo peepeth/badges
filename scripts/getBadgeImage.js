@@ -6,49 +6,49 @@ module.exports = function (badgeName) {
       value = "http://openmoji.org/data/color/svg/1F427.svg";
       break;
     case "WellWisher":
-      value = "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/mozilla/36/waving-hand-sign_1f44b.png";       
+      value = "http://openmoji.org/data/color/svg/1F64F.svg";       
       break; 
     case "Authenticity":
-      value = "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/mozilla/36/gem-stone_1f48e.png";
+      value = "http://openmoji.org/data/color/svg/1F48E.svg";
       break; 
     case "Upholder":
-      value = "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/google/146/raised-fist_270a.png";
+      value = "http://openmoji.org/data/color/svg/270A.svg";
       break; 
     case "Creativity":        
-      value = "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/mozilla/36/hibiscus_1f33a.png";
+      value = "http://openmoji.org/data/color/svg/1F3A8.svg";
       break; 
     case "Freedom":
-      value = "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/mozilla/36/statue-of-liberty_1f5fd.png";
+      value = "http://openmoji.org/data/color/svg/1F985.svg";
       break; 
     case "Peace":
-      value = "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/google/146/dove-of-peace_1f54a.png";
+      value = "http://openmoji.org/data/color/svg/1F54A.svg";
       break; 
     case "Transcendence":
-      value = "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/google/146/wheel-of-dharma_2638.png";
+      value = "http://openmoji.org/data/color/svg/1F9D8.svg";
       break; 
     case "Honor":
-      value = "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/google/146/fleur-de-lis_269c.png";
+      value = "http://openmoji.org/data/color/svg/1F5DD.svg";
       break; 
     case "Sponsor":
-      value = "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/mozilla/36/person-with-folded-hands_1f64f.png";
+      value = "http://openmoji.org/data/color/svg/1F40B.svg";
       break; 
     case "MegaSponsor":
-      value = "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/mozilla/36/person-with-folded-hands_1f64f.png";
+      value = "http://openmoji.org/data/color/svg/1F433.svg";
       break; 
     case "Penguin":
-      value = "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/google/146/penguin_1f427.png";       
+      value = "http://openmoji.org/data/color/svg/1F427.svg";       
       break; 
     case "GentooPenguin":        
-      value = "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/google/146/penguin_1f427.png";       
+      value = "http://openmoji.org/data/color/svg/1F427.svg";       
       break; 
     case "KingPenguin":        
-      value = "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/google/146/penguin_1f427.png";       
+      value = "http://openmoji.org/data/color/svg/1F427.svg";       
       break; 
     case "EmperorPenguin":        
-      value = "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/google/146/penguin_1f427.png";       
+      value = "http://openmoji.org/data/color/svg/1F427.svg";       
       break; 
     case "LittlePenguin":        
-      value = "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/google/146/penguin_1f427.png";
+      value = "http://openmoji.org/data/color/svg/1F427.svg";
       break;
   }
 

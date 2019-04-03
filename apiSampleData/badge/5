@@ -12,6 +12,6 @@
     ], 
     "description": "Freedom badge.", 
     "external_url": "https://peepeth.com/a/crowdfunding", 
-    "image": "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/mozilla/36/statue-of-liberty_1f5fd.png", 
+    "image": "http://openmoji.org/data/color/svg/1F985.svg", 
     "name": "Freedom badge"
   }

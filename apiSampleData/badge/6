@@ -12,6 +12,6 @@
     ], 
     "description": "Peace badge.", 
     "external_url": "https://peepeth.com/a/crowdfunding", 
-    "image": "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/google/146/dove-of-peace_1f54a.png", 
+    "image": "http://openmoji.org/data/color/svg/1F54A.svg", 
     "name": "Peace badge"
   }

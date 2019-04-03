@@ -9,7 +9,6 @@ module.exports = async function(callback) {
     let peepethBadgesContract = await PeepethBadges.deployed();
     console.log(`Minting badges address: ${peepethBadgesContract.address}`);
 
-    //await badgeRecipients.forEach(mint)
     for (var index = 0; index < badgeRecipients.length; index++) {
         try {
             var badge = badgeRecipients[index];

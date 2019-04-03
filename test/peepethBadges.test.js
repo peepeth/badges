@@ -65,8 +65,8 @@ contract('PeepethBadges', function([minter, anotherAccount]) {
       }
     });
 
-    it.skip('cannot mint a token for a non-existant badge', async function() {
-      await shouldFail.reverting(peepethBadges.mintWithTokenURI(anotherAccount, 1, badgeCount, `${baseTokenUri}1`));
+    it('cannot mint a token for a non-existant badge', async function() {
+      await shouldFail(peepethBadges.mintWithTokenURI(anotherAccount, 1, badgeCount, `${baseTokenUri}1`));
     });
     
     it('non-minter cannot mint a token', async function() {

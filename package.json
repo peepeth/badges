@@ -19,6 +19,7 @@
     "dotenv": "^7.0.0",
     "eth-gas-reporter": "^0.1.12",
     "openzeppelin-test-helpers": "^0.3.0",
+    "solidity-coverage": "^0.5.11",
     "truffle-hdwallet-provider": "^1.0.6"
   }
 }

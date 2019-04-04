@@ -15,6 +15,6 @@ module.exports = function (badge, number) {
     "description": "${badge.badge.displayName} badge.", 
     "external_url": "https://peepeth.com/a/crowdfunding", 
     "image": "${badge.badge.image}", 
-    "name": "${badge.badge.displayName} badge"
+    "name": "${(typeof badge.name !== "undefined" ) ? badge.name : badge.badge.displayName} badge"
   }`
 }

@@ -3,15 +3,15 @@
     "attributes": [
       {
         "trait_type": "Badge", 
-        "value": "LittlePenguin"
+        "value": "Little Penguin"
       },
       {
         "trait_type": "Era", 
         "value": "CrowdFunding 2018"
       }
     ], 
-    "description": "LittlePenguin badge.", 
+    "description": "Little Penguin badge.", 
     "external_url": "https://peepeth.com/a/crowdfunding", 
     "image": "http://openmoji.org/data/color/svg/1F427.svg", 
-    "name": "LittlePenguin badge"
+    "name": "Little Penguin badge"
   }

@@ -1,5 +1,3 @@
-var getBadgeImage = require('./getBadgeImage.js')
-
 // export module
 module.exports = function (badge, number) {
     return `
@@ -7,16 +5,16 @@ module.exports = function (badge, number) {
     "attributes": [
       {
         "trait_type": "Badge", 
-        "value": "${badge.badge}"
+        "value": "${badge.badge.displayName}"
       },
       {
         "trait_type": "Era", 
         "value": "CrowdFunding 2018"
       }
     ], 
-    "description": "${badge.badge} badge.", 
+    "description": "${badge.badge.displayName} badge.", 
     "external_url": "https://peepeth.com/a/crowdfunding", 
-    "image": "${getBadgeImage(badge.badge)}", 
-    "name": "${badge.badge} badge"
+    "image": "${badge.badge.image}", 
+    "name": "${badge.badge.displayName} badge"
   }`
 }

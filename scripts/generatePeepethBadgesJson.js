@@ -1,4 +1,4 @@
-var badgeRecipients = require('../badgeRecipients.json')
+var badgeRecipients = require('../badgeRecipients.js')
 var generatePeepethBadgeJSON = require('./generatePeepethBadgeJson.js')
 
 var fs = require('fs');

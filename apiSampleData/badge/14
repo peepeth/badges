@@ -3,15 +3,15 @@
     "attributes": [
       {
         "trait_type": "Badge", 
-        "value": "EmperorPenguin"
+        "value": "Emperor Penguin"
       },
       {
         "trait_type": "Era", 
         "value": "CrowdFunding 2018"
       }
     ], 
-    "description": "EmperorPenguin badge.", 
+    "description": "Emperor Penguin badge.", 
     "external_url": "https://peepeth.com/a/crowdfunding", 
     "image": "http://openmoji.org/data/color/svg/1F427.svg", 
-    "name": "EmperorPenguin badge"
+    "name": "Emperor Penguin badge"
   }

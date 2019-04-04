@@ -1,6 +1,5 @@
 var PeepethBadges = artifacts.require("./PeepethBadges.sol");
-var badgeRecipients = require('../badgeRecipients.json')
-var getBadgeValue = require('./getBadgeValue.js')
+var badgeRecipients = require('../badgeRecipients.js')
 
 const baseTokenUri = "https://abcoathup.github.io/badges/apiSampleData/badge/";
 
@@ -14,7 +13,7 @@ module.exports = async function(callback) {
             var badge = badgeRecipients[index];
             var tokenId = index;
             var tokenUri = `${baseTokenUri}${index}`; 
-            var badgeValue = getBadgeValue(badge.badge);
+            var badgeValue = badge.badge.value;
             console.log(`Mint address: ${badge.address} tokenId: ${tokenId} badge: ${badgeValue} tokenUri: ${tokenUri}`);
             await peepethBadgesContract.mintWithTokenURI(badge.address, tokenId, badgeValue, tokenUri);
         } catch (err) {

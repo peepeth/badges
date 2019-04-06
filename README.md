@@ -10,6 +10,11 @@ Deploy contract to testnet
 truffle migrate --reset --network rinkeby
 ```
 
+Flatten contract
+```
+node ./node_modules/truffle-flattener/index.js ./contracts/PeepethBadges.sol > ./contracts/FlatPeepethBadges.sol
+```
+
 Mint badges to testnet
 ```
 truffle exec scripts/mintPeepethBadges.js --network rinkeby

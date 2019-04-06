@@ -974,31 +974,12 @@ contract MinterRole {
 
 // File: contracts/PeepethBadges.sol
 
-pragma solidity ^0.5.2;
+pragma solidity 0.5.2;
 
 contract PeepethBadges is ERC721Full, MinterRole {
   
-  enum Badges {
-    Peepeth,        // 0
-    WellWisher,     // 1
-    Authenticity,   // 2
-    Upholder,       // 3
-    Creativity,     // 4
-    Freedom,        // 5
-    Peace,          // 6
-    Transcendence,  // 7
-    Honor,          // 8
-    Sponsor,        // 9
-    MegaSponsor,    // 10
-    Penguin,        // 11
-    GentooPenguin,  // 12
-    KingPenguin,    // 13
-    EmperorPenguin, // 14
-    LittlePenguin   // 15
-  }
-
   // Mapping from token ID to badge
-  mapping (uint256 => Badges) private _tokenBadges;
+  mapping (uint256 => uint256) private _tokenBadges;
  
   constructor() ERC721Full("Peepeth Badges", "PB") public {
   }
@@ -1011,7 +992,7 @@ contract PeepethBadges is ERC721Full, MinterRole {
    * @param tokenURI The token URI of the minted token.
    * @return A boolean that indicates if the operation was successful.
    */
-  function mintWithTokenURI(address to, uint256 tokenId, Badges badge, string memory tokenURI) public onlyMinter returns (bool) {
+  function mintWithTokenURI(address to, uint256 tokenId, uint256 badge, string memory tokenURI) public onlyMinter returns (bool) {
     _mint(to, tokenId);
     _setTokenURI(tokenId, tokenURI);
     _setTokenBadge(tokenId, badge);
@@ -1023,7 +1004,7 @@ contract PeepethBadges is ERC721Full, MinterRole {
    * @param tokenId uint256 ID of the token to get its badge
    * @return uint representing badge
    */
-  function tokenBadge(uint256 tokenId) public view returns (Badges) {
+  function tokenBadge(uint256 tokenId) public view returns (uint256) {
     return _tokenBadges[tokenId];
   }
 
@@ -1033,7 +1014,7 @@ contract PeepethBadges is ERC721Full, MinterRole {
    * @param tokenId uint256 ID of the token to set its badge
    * @param badge badge to assign
    */
-  function _setTokenBadge(uint256 tokenId, Badges badge) internal {
+  function _setTokenBadge(uint256 tokenId, uint256 badge) internal {
     require(_exists(tokenId));
     _tokenBadges[tokenId] = badge;
   }

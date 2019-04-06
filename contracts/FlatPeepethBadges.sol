@@ -974,7 +974,7 @@ contract MinterRole {
 
 // File: contracts/PeepethBadges.sol
 
-pragma solidity 0.5.2;
+pragma solidity 0.5.7;
 
 contract PeepethBadges is ERC721Full, MinterRole {
   

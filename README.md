@@ -12,7 +12,7 @@ truffle migrate --reset --network rinkeby
 
 Flatten contract
 ```
-node ./node_modules/truffle-flattener/index.js ./contracts/PeepethBadges.sol > ./contracts/FlatPeepethBadges.sol
+npm run flatten
 ```
 
 Mint badges to testnet

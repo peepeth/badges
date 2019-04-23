@@ -1,11 +1,11 @@
 const { BN, constants, expectEvent, shouldFail } = require('openzeppelin-test-helpers');
-const PeepethBadges = artifacts.require('PeepethBadges')
+const PeepethBadges = artifacts.require('PeepethBadgesV1')
 
-contract('PeepethBadges', function([minter, anotherAccount]) {
+contract('PeepethBadgesV1', function([minter, anotherAccount]) {
   let horses
   const name = "Peepeth Badges";
   const symbol = "PB";
-  const baseTokenUri = "https://peepeth.com/badges/api/badge/";
+  const baseTokenUri = "https://abcoathup.github.io/badges/api/badge/";
   const badgeCount = 16
 
   beforeEach(async function() {
@@ -25,24 +25,24 @@ contract('PeepethBadges', function([minter, anotherAccount]) {
 
   describe('token minting', function() {
     it('mint a token', async function() {
-      await peepethBadges.mint(anotherAccount, new BN(0));
+      await peepethBadges.mintWithTokenURI(anotherAccount, 1, 0, `${baseTokenUri}1`);
       const _totalSupply = await peepethBadges.totalSupply();
       assert.equal(1, _totalSupply);
       const minterBalance = await peepethBadges.balanceOf(minter);
       assert.equal(0, minterBalance);
       anotherAccountBalance = await peepethBadges.balanceOf(anotherAccount);
       assert.equal(1, anotherAccountBalance);
-      const _owner = await peepethBadges.ownerOf(new BN(1));
+      const _owner = await peepethBadges.ownerOf(1);
       assert.equal(anotherAccount, _owner);
-      const _tokenUri = await peepethBadges.tokenURI(new BN(1));
+      const _tokenUri = await peepethBadges.tokenURI(1);
       assert.equal(`${baseTokenUri}1`, _tokenUri);
-      const _tokenbadge = await peepethBadges.tokenBadge(new BN(1));
-      _tokenbadge.should.be.bignumber.equal(new BN(0));
+      const _tokenbadge = await peepethBadges.tokenBadge(1);
+      assert.equal(0, _tokenbadge);
     });
 
     it('mint multiple tokens', async function() {
       for (var i=0; i < badgeCount; i++) {
-        await peepethBadges.mint(anotherAccount, new BN(i + 1));
+        await peepethBadges.mintWithTokenURI(anotherAccount, i + 1, i, `${baseTokenUri}${i + 1}`);
       }
       
       const _totalSupply = await peepethBadges.totalSupply();
@@ -54,21 +54,19 @@ contract('PeepethBadges', function([minter, anotherAccount]) {
 
       var _owner;
       var _tokenUri;
-      var _tokenbadge;
-      var _tokenId;
+      var _tokenbadge
       for (var i=0; i < badgeCount; i++) {
-        _tokenId = new BN(i + 1);
-        _owner = await peepethBadges.ownerOf(_tokenId);
+        _owner = await peepethBadges.ownerOf(i + 1);
         assert.equal(anotherAccount, _owner);
-        _tokenUri = await peepethBadges.tokenURI(_tokenId);
+        _tokenUri = await peepethBadges.tokenURI(i + 1);
         assert.equal(`${baseTokenUri}${i + 1}`, _tokenUri);
-        _tokenbadge = await peepethBadges.tokenBadge(_tokenId);
-        _tokenbadge.should.be.bignumber.equal(new BN(i + 1));
+        _tokenbadge = await peepethBadges.tokenBadge(i + 1);
+        assert.equal(i, _tokenbadge);
       }
     });
     
     it('non-minter cannot mint a token', async function() {
-      await shouldFail.reverting(peepethBadges.mint(anotherAccount, new BN(0), { from: anotherAccount }));
+      await shouldFail.reverting(peepethBadges.mintWithTokenURI(anotherAccount, 1, 0, `${baseTokenUri}1`, { from: anotherAccount }));
     })
   });
 })

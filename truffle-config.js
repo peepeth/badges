@@ -19,6 +19,7 @@
  */
 
 require('dotenv').config();
+require('chai/register-should');
 
 const HDWalletProvider = require('truffle-hdwallet-provider');
 const infuraKey = "${process.env.INFURA_API_KEY}";
@@ -69,16 +70,16 @@ module.exports = {
     // },
 
     rinkeby: {
-      provider: () => new HDWalletProvider(process.env.DEV_MNEMONIC, `https://rinkeby.infura.io/${infuraKey}`),
+      provider: () => new HDWalletProvider(process.env.DEV_MNEMONIC, 'https://rinkeby.infura.io/v3/638291c1ab9a4049962f8b7480d2b6dd'),
       network_id: 4,       // Rinkeby's id
       gas: 5500000,        // Ropsten has a lower block limit than mainnet
       confirmations: 2,    // # of confs to wait between deployments. (default: 0)
       timeoutBlocks: 200,  // # of blocks before a deployment times out  (minimum/default: 50)
-      skipDryRun: false     // Skip dry run before migrations? (default: false for public nets )
+      skipDryRun: true     // Skip dry run before migrations? (default: false for public nets )
     },
 
     ropsten: {
-      provider: () => new HDWalletProvider(process.env.DEV_MNEMONIC, `https://ropsten.infura.io/${infuraKey}`),
+      provider: () => new HDWalletProvider(process.env.DEV_MNEMONIC, `https://ropsten.infura.io/v3/${infuraKey}`),
       network_id: 3,       // Ropsten's id
       gas: 5500000,        // Ropsten has a lower block limit than mainnet
       confirmations: 2,    // # of confs to wait between deployments. (default: 0)

@@ -1,6 +1,7 @@
 pragma solidity 0.5.7;
 
 import "./Strings.sol";
+import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
 import "openzeppelin-solidity/contracts/token/ERC721/ERC721.sol";
 import "openzeppelin-solidity/contracts/token/ERC721/ERC721Enumerable.sol";
 import "openzeppelin-solidity/contracts/token/ERC721/ERC721Metadata.sol";
@@ -13,7 +14,7 @@ import "openzeppelin-solidity/contracts/introspection/ERC165.sol";
  * Moreover, it includes approve all functionality using operator terminology
  * @dev see https://github.c/ethereum/EIPs/blob/master/EIPS/eip-721.md
  */
-contract PeepethBadges is ERC165, ERC721, ERC721Enumerable, IERC721Metadata, MinterRole {
+contract PeepethBadges is ERC165, ERC721, ERC721Enumerable, IERC721Metadata, MinterRole, Ownable {
 
   // Mapping from token ID to badge
   mapping (uint256 => uint256) private _tokenBadges;
@@ -23,6 +24,9 @@ contract PeepethBadges is ERC165, ERC721, ERC721Enumerable, IERC721Metadata, Min
 
   // Token symbol
   string private _symbol;
+
+  // Base URI for badge data
+  string private _baseTokenURI;
 
   bytes4 private constant _INTERFACE_ID_ERC721_METADATA = 0x5b5e139f;
   /*
@@ -38,6 +42,7 @@ contract PeepethBadges is ERC165, ERC721, ERC721Enumerable, IERC721Metadata, Min
   constructor () public {
     _name = "Peepeth Badges";
     _symbol = "PB";
+    _baseTokenURI = "https://peepeth.com/b/";
 
     // register the supported interfaces to conform to ERC721 via ERC165
     _registerInterface(_INTERFACE_ID_ERC721_METADATA);
@@ -76,8 +81,16 @@ contract PeepethBadges is ERC165, ERC721, ERC721Enumerable, IERC721Metadata, Min
    * @dev Gets the base token URI
    * @return string representing the base token URI
    */
-  function baseTokenURI() public pure returns (string memory) {
-    return "https://peepeth.com/badges/api/badge/";
+  function baseTokenURI() public view returns (string memory) {
+    return _baseTokenURI;
+  }
+
+
+  /**
+   * @dev Set the base token URI
+   */
+  function setBaseTokenURI(string memory baseURI) public onlyOwner {
+    _baseTokenURI = baseURI;
   }
 
   /**
@@ -120,4 +133,21 @@ contract PeepethBadges is ERC165, ERC721, ERC721Enumerable, IERC721Metadata, Min
   function _getNextTokenId() private view returns (uint256) {
     return totalSupply().add(1);
   }
+
+
+
+  /**
+   * @dev Only owner can addMinter
+   */
+  function addMinter(address account) public onlyOwner {
+    _addMinter(account);
+  }
+
+  /**
+   * @dev Only owner can renounce specific minters
+   */
+  function renounceMinter(address account) public onlyOwner {
+    _removeMinter(account);
+  }
+
 }

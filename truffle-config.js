@@ -70,7 +70,7 @@ module.exports = {
     // },
 
     rinkeby: {
-      provider: () => new HDWalletProvider(process.env.DEV_MNEMONIC, 'https://rinkeby.infura.io/v3/638291c1ab9a4049962f8b7480d2b6dd'),
+      provider: () => new HDWalletProvider(process.env.DEV_MNEMONIC, `https://rinkeby.infura.io/v3/${infuraKey}`),
       network_id: 4,       // Rinkeby's id
       gas: 5500000,        // Ropsten has a lower block limit than mainnet
       confirmations: 2,    // # of confs to wait between deployments. (default: 0)

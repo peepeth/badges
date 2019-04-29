@@ -1,7 +1,7 @@
 const { BN, constants, expectEvent, shouldFail } = require('openzeppelin-test-helpers');
 const PeepethBadges = artifacts.require('PeepethBadges')
 
-contract('PeepethBadges', function([minter, anotherAccount, thirdAccount]) {
+contract('PeepethBadges', function([owner, anotherAccount, thirdAccount]) {
   const name = "Peepeth Badges";
   const symbol = "PB";
   const baseTokenURI = "https://peepeth.com/b/";
@@ -29,7 +29,7 @@ contract('PeepethBadges', function([minter, anotherAccount, thirdAccount]) {
       await peepethBadges.mint(anotherAccount, new BN(0));
       const _totalSupply = await peepethBadges.totalSupply();
       assert.equal(1, _totalSupply);
-      const minterBalance = await peepethBadges.balanceOf(minter);
+      const minterBalance = await peepethBadges.balanceOf(owner);
       assert.equal(0, minterBalance);
       anotherAccountBalance = await peepethBadges.balanceOf(anotherAccount);
       assert.equal(1, anotherAccountBalance);
@@ -48,7 +48,7 @@ contract('PeepethBadges', function([minter, anotherAccount, thirdAccount]) {
       
       const _totalSupply = await peepethBadges.totalSupply();
       assert.equal(badgeCount, _totalSupply);
-      const minterBalance = await peepethBadges.balanceOf(minter);
+      const minterBalance = await peepethBadges.balanceOf(owner);
       assert.equal(0, minterBalance);
       anotherAccountBalance = await peepethBadges.balanceOf(anotherAccount);
       assert.equal(badgeCount, anotherAccountBalance);
@@ -89,17 +89,16 @@ contract('PeepethBadges', function([minter, anotherAccount, thirdAccount]) {
       assert.equal(1, _totalSupply);      
     })
 
-    it('account recounce minter', async function() {
-      await peepethBadges.addMinter(anotherAccount);
-      await peepethBadges.methods['renounceMinter()']({ from: anotherAccount });
+    it('renounce minter role', async function() {
+      await peepethBadges.methods['renounceMinter()']();
 
-      var isMinter = await peepethBadges.isMinter(anotherAccount);
+      var isMinter = await peepethBadges.isMinter(owner);
       assert.equal(false, isMinter);
     })
 
-    it.skip('owner recounce minter', async function() {
+    it('owner renounce another accounts minter role', async function() {
       await peepethBadges.addMinter(anotherAccount);
-      await peepethBadges.methods['recounceMinter(address)'](anotherAccount);
+      await peepethBadges.methods['renounceMinter(address)'](anotherAccount);
 
       var isMinter = await peepethBadges.isMinter(anotherAccount);
       assert.equal(false, isMinter);
@@ -122,5 +121,15 @@ contract('PeepethBadges', function([minter, anotherAccount, thirdAccount]) {
       var isMinter = await peepethBadges.isMinter(thirdAccount);
       assert.equal(false, isMinter);
     })
+
+    it('non-owner cannot renounce another account minter role', async function() {
+      await peepethBadges.addMinter(anotherAccount);
+      await peepethBadges.addMinter(thirdAccount);
+      await shouldFail.reverting(peepethBadges.methods['renounceMinter(address)'](anotherAccount, { from: thirdAccount }));
+
+      var isMinter = await peepethBadges.isMinter(thirdAccount);
+      assert.equal(true, isMinter);
+    })
+
   });
 })

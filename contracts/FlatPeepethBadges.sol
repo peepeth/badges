@@ -1093,10 +1093,9 @@ pragma solidity 0.5.7;
  * @dev see https://github.c/ethereum/EIPs/blob/master/EIPS/eip-721.md
  */
 contract PeepethBadges is ERC165, ERC721, ERC721Enumerable, IERC721Metadata, MinterRole, Ownable {
-
   // Mapping from token ID to badge
   mapping (uint256 => uint256) private _tokenBadges;
-  
+
   // Token name
   string private _name;
 
@@ -1156,7 +1155,7 @@ contract PeepethBadges is ERC165, ERC721, ERC721Enumerable, IERC721Metadata, Min
    * @param tokenId uint256 ID of the token to query
    */
   function tokenURI(uint256 tokenId) external view returns (string memory) {
-    require(_exists(tokenId));
+    require(_exists(tokenId), "PeepethBadges: get URI for nonexistent token");
     return Strings.Concatenate(
       baseTokenURI(),
       Strings.UintToString(tokenId)
@@ -1213,7 +1212,7 @@ contract PeepethBadges is ERC165, ERC721, ERC721Enumerable, IERC721Metadata, Min
    * @param badge badge to assign
    */
   function _setTokenBadge(uint256 tokenId, uint256 badge) internal {
-    require(_exists(tokenId));
+    require(_exists(tokenId), "PeepethBadges: set token badge for nonexistent token");
     _tokenBadges[tokenId] = badge;
   }
 

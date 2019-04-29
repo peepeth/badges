@@ -8,7 +8,7 @@ contract('PeepethBadges', function([owner, anotherAccount, thirdAccount]) {
   const badgeCount = 8
 
   beforeEach(async function() {
-    peepethBadges = await PeepethBadges.new({ from: minter })
+    peepethBadges = await PeepethBadges.new({ from: owner })
   });
 
   describe('token details', function() {
@@ -104,20 +104,32 @@ contract('PeepethBadges', function([owner, anotherAccount, thirdAccount]) {
       assert.equal(false, isMinter);
     })
 
+    it('cannot get URI for nonexistant token', async function() {
+      await shouldFail.reverting.withMessage(
+        peepethBadges.tokenURI(new BN(1)),
+        "PeepethBadges: get URI for nonexistent token");
+    })
+
     it('non-minter cannot mint a token', async function() {
-      await shouldFail.reverting(peepethBadges.mint(anotherAccount, new BN(0), { from: anotherAccount }));
+      await shouldFail.reverting.withMessage(
+        peepethBadges.mint(anotherAccount, new BN(0), { from: anotherAccount }),
+        "");
     })
     
     it('non-owner cannot change baseTokenURI', async function() {
       const newBaseTokenURI = "https://peepeth.com/b2/";
-      await shouldFail.reverting(peepethBadges.setBaseTokenURI(newBaseTokenURI, { from: anotherAccount }));
+      await shouldFail.reverting.withMessage(
+        peepethBadges.setBaseTokenURI(newBaseTokenURI, { from: anotherAccount }),
+        "");
       const _baseTokenURI = await peepethBadges.baseTokenURI();
       assert.equal(baseTokenURI, _baseTokenURI);
     })
     
     it('non-owner minter cannot add minter', async function() {
       await peepethBadges.addMinter(anotherAccount);
-      await shouldFail.reverting(peepethBadges.addMinter(thirdAccount, { from: anotherAccount }));
+      await shouldFail.reverting.withMessage(
+        peepethBadges.addMinter(thirdAccount, { from: anotherAccount }),
+        "");
       var isMinter = await peepethBadges.isMinter(thirdAccount);
       assert.equal(false, isMinter);
     })
@@ -125,7 +137,9 @@ contract('PeepethBadges', function([owner, anotherAccount, thirdAccount]) {
     it('non-owner cannot renounce another account minter role', async function() {
       await peepethBadges.addMinter(anotherAccount);
       await peepethBadges.addMinter(thirdAccount);
-      await shouldFail.reverting(peepethBadges.methods['renounceMinter(address)'](anotherAccount, { from: thirdAccount }));
+      await shouldFail.reverting.withMessage(
+        peepethBadges.methods['renounceMinter(address)'](anotherAccount, { from: thirdAccount }),
+        "");
 
       var isMinter = await peepethBadges.isMinter(thirdAccount);
       assert.equal(true, isMinter);

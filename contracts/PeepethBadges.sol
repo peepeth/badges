@@ -65,6 +65,14 @@ contract PeepethBadges is ERC165, ERC721, ERC721Enumerable, IERC721Metadata, Min
   }
 
   /**
+   * @dev Gets the base token URI
+   * @return string representing the base token URI
+   */
+  function baseTokenURI() public view returns (string memory) {
+    return _baseTokenURI;
+  }
+
+  /**
    * @dev Returns an URI for a given token ID
    * Throws if the token ID does not exist. May return an empty string.
    * @param tokenId uint256 ID of the token to query
@@ -76,15 +84,6 @@ contract PeepethBadges is ERC165, ERC721, ERC721Enumerable, IERC721Metadata, Min
       Strings.UintToString(tokenId)
     );
   }
-    
-  /**
-   * @dev Gets the base token URI
-   * @return string representing the base token URI
-   */
-  function baseTokenURI() public view returns (string memory) {
-    return _baseTokenURI;
-  }
-
 
   /**
    * @dev Set the base token URI
@@ -116,6 +115,20 @@ contract PeepethBadges is ERC165, ERC721, ERC721Enumerable, IERC721Metadata, Min
   }
 
   /**
+   * @dev Only owner can addMinter
+   */
+  function addMinter(address account) public onlyOwner {
+    _addMinter(account);
+  }
+
+  /**
+   * @dev Only owner can renounce specific minters
+   */
+  function renounceMinter(address account) public onlyOwner {
+    _removeMinter(account);
+  }
+
+  /**
    * @dev Internal function to set the token badge for a given token
    * Reverts if the token ID does not exist
    * @param tokenId uint256 ID of the token to set its badge
@@ -133,21 +146,4 @@ contract PeepethBadges is ERC165, ERC721, ERC721Enumerable, IERC721Metadata, Min
   function _getNextTokenId() private view returns (uint256) {
     return totalSupply().add(1);
   }
-
-
-
-  /**
-   * @dev Only owner can addMinter
-   */
-  function addMinter(address account) public onlyOwner {
-    _addMinter(account);
-  }
-
-  /**
-   * @dev Only owner can renounce specific minters
-   */
-  function renounceMinter(address account) public onlyOwner {
-    _removeMinter(account);
-  }
-
 }

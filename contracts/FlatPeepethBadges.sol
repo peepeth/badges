@@ -45,6 +45,82 @@ library Strings {
   }
 }
 
+// File: openzeppelin-solidity/contracts/ownership/Ownable.sol
+
+pragma solidity ^0.5.2;
+
+/**
+ * @title Ownable
+ * @dev The Ownable contract has an owner address, and provides basic authorization control
+ * functions, this simplifies the implementation of "user permissions".
+ */
+contract Ownable {
+    address private _owner;
+
+    event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);
+
+    /**
+     * @dev The Ownable constructor sets the original `owner` of the contract to the sender
+     * account.
+     */
+    constructor () internal {
+        _owner = msg.sender;
+        emit OwnershipTransferred(address(0), _owner);
+    }
+
+    /**
+     * @return the address of the owner.
+     */
+    function owner() public view returns (address) {
+        return _owner;
+    }
+
+    /**
+     * @dev Throws if called by any account other than the owner.
+     */
+    modifier onlyOwner() {
+        require(isOwner());
+        _;
+    }
+
+    /**
+     * @return true if `msg.sender` is the owner of the contract.
+     */
+    function isOwner() public view returns (bool) {
+        return msg.sender == _owner;
+    }
+
+    /**
+     * @dev Allows the current owner to relinquish control of the contract.
+     * It will not be possible to call the functions with the `onlyOwner`
+     * modifier anymore.
+     * @notice Renouncing ownership will leave the contract without an owner,
+     * thereby removing any functionality that is only available to the owner.
+     */
+    function renounceOwnership() public onlyOwner {
+        emit OwnershipTransferred(_owner, address(0));
+        _owner = address(0);
+    }
+
+    /**
+     * @dev Allows the current owner to transfer control of the contract to a newOwner.
+     * @param newOwner The address to transfer ownership to.
+     */
+    function transferOwnership(address newOwner) public onlyOwner {
+        _transferOwnership(newOwner);
+    }
+
+    /**
+     * @dev Transfers control of the contract to a newOwner.
+     * @param newOwner The address to transfer ownership to.
+     */
+    function _transferOwnership(address newOwner) internal {
+        require(newOwner != address(0));
+        emit OwnershipTransferred(_owner, newOwner);
+        _owner = newOwner;
+    }
+}
+
 // File: openzeppelin-solidity/contracts/introspection/IERC165.sol
 
 pragma solidity ^0.5.2;
@@ -1001,7 +1077,14 @@ contract MinterRole {
 
 // File: contracts/PeepethBadges.sol
 
-pragma solidity 0.5.7;
+pragma solidity 0.5.7;
+
+
+
+
+
+
+
 
 /**
  * @title Peepeth Badges ERC721 Token
@@ -1009,7 +1092,7 @@ pragma solidity 0.5.7;
  * Moreover, it includes approve all functionality using operator terminology
  * @dev see https://github.c/ethereum/EIPs/blob/master/EIPS/eip-721.md
  */
-contract PeepethBadges is ERC165, ERC721, ERC721Enumerable, IERC721Metadata, MinterRole {
+contract PeepethBadges is ERC165, ERC721, ERC721Enumerable, IERC721Metadata, MinterRole, Ownable {
 
   // Mapping from token ID to badge
   mapping (uint256 => uint256) private _tokenBadges;
@@ -1019,6 +1102,9 @@ contract PeepethBadges is ERC165, ERC721, ERC721Enumerable, IERC721Metadata, Min
 
   // Token symbol
   string private _symbol;
+
+  // Base URI for badge data
+  string private _baseTokenURI;
 
   bytes4 private constant _INTERFACE_ID_ERC721_METADATA = 0x5b5e139f;
   /*
@@ -1034,6 +1120,7 @@ contract PeepethBadges is ERC165, ERC721, ERC721Enumerable, IERC721Metadata, Min
   constructor () public {
     _name = "Peepeth Badges";
     _symbol = "PB";
+    _baseTokenURI = "https://peepeth.com/b/";
 
     // register the supported interfaces to conform to ERC721 via ERC165
     _registerInterface(_INTERFACE_ID_ERC721_METADATA);
@@ -1056,6 +1143,14 @@ contract PeepethBadges is ERC165, ERC721, ERC721Enumerable, IERC721Metadata, Min
   }
 
   /**
+   * @dev Gets the base token URI
+   * @return string representing the base token URI
+   */
+  function baseTokenURI() public view returns (string memory) {
+    return _baseTokenURI;
+  }
+
+  /**
    * @dev Returns an URI for a given token ID
    * Throws if the token ID does not exist. May return an empty string.
    * @param tokenId uint256 ID of the token to query
@@ -1067,13 +1162,12 @@ contract PeepethBadges is ERC165, ERC721, ERC721Enumerable, IERC721Metadata, Min
       Strings.UintToString(tokenId)
     );
   }
-    
+
   /**
-   * @dev Gets the base token URI
-   * @return string representing the base token URI
+   * @dev Set the base token URI
    */
-  function baseTokenURI() public pure returns (string memory) {
-    return "https://peepeth.com/badges/api/badge/";
+  function setBaseTokenURI(string memory baseURI) public onlyOwner {
+    _baseTokenURI = baseURI;
   }
 
   /**
@@ -1096,6 +1190,20 @@ contract PeepethBadges is ERC165, ERC721, ERC721Enumerable, IERC721Metadata, Min
    */
   function tokenBadge(uint256 tokenId) public view returns (uint256) {
     return _tokenBadges[tokenId];
+  }
+
+  /**
+   * @dev Only owner can addMinter
+   */
+  function addMinter(address account) public onlyOwner {
+    _addMinter(account);
+  }
+
+  /**
+   * @dev Only owner can renounce specific minters
+   */
+  function renounceMinter(address account) public onlyOwner {
+    _removeMinter(account);
   }
 
   /**

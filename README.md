@@ -1,5 +1,22 @@
 # Peepeth Badges
 
+# Contracts
+   Deploying 'Strings'
+   -------------------
+   > transaction hash:    0x913582d1390da9faded5b3838dc12be2019a8809be209162e7a775f85ff8ebff
+   > Blocks: 0            Seconds: 6
+   > contract address:    0x96423cD7f645401D081cc19bd5eA4a5Da2211896
+   > block number:        7665403
+   > block timestamp:     1556581973
+
+   Deploying 'PeepethBadges'
+   -------------------------
+   > transaction hash:    0x4db9fdb12ee89a679bf521737d4a2026c7aa3b7fb4956b4998e7c323166fde63
+   > Blocks: 3            Seconds: 14
+   > contract address:    0x503d43Bd937767bfBA9f47132a53DCaB4E34b4FD
+   > block number:        7665408
+   > block timestamp:     1556582020
+
 Generate json
 ```
 node scripts/generatePeepethBadgesJson.js

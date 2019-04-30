@@ -23,9 +23,6 @@ require('chai/register-should');
 
 const HDWalletProvider = require('truffle-hdwallet-provider');
 const infuraKey = process.env.INFURA_API_KEY;
-//const rinkebyEndPoint = "https://rinkeby.infura.io/v3/" + infuraKey;
-
-
 
 module.exports = {
   /**
@@ -102,7 +99,7 @@ module.exports = {
       provider: () => new HDWalletProvider(process.env.MAINNET_MNEMONIC, "https://mainnet.infura.io/v3/" + infuraKey),
       network_id: 1,       // 
       gas: 5500000,  
-      gasPrice: 7500000000,  // check https://ethgasstation.info/
+      gasPrice: 3000000000,  // check https://ethgasstation.info/
       confirmations: 2,    // # of confs to wait between deployments. (default: 0)
       timeoutBlocks: 200,  // # of blocks before a deployment times out  (minimum/default: 50)
       skipDryRun: false     // Skip dry run before migrations? (default: false for public nets )

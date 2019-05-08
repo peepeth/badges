@@ -1,11 +1,10 @@
 
 // File: contracts/Strings.sol
 
-pragma solidity 0.5.7;
+pragma solidity 0.5.8;
 
-library Strings {
+contract Strings {
   // via https://github.com/oraclize/ethereum-api/blob/master/oraclizeAPI_0.5.sol MIT licence
-  
   function Concatenate(string memory a, string memory b) public pure returns (string memory concatenatedString) {
     bytes memory bytesA = bytes(a);
     bytes memory bytesB = bytes(b);
@@ -19,13 +18,13 @@ library Strings {
     for (index = 0; index < bytesB.length; index++) {
       bytesAB[concatendatedIndex++] = bytesB[index];
     }
-      
+
     return string(bytesAB);
   }
 
   function UintToString(uint value) public pure returns (string memory uintAsString) {
     uint tempValue = value;
-    
+
     if (tempValue == 0) {
       return "0";
     }
@@ -1077,7 +1076,7 @@ contract MinterRole {
 
 // File: contracts/PeepethBadges.sol
 
-pragma solidity 0.5.7;
+pragma solidity 0.5.8;
 
 
 
@@ -1092,7 +1091,7 @@ pragma solidity 0.5.7;
  * Moreover, it includes approve all functionality using operator terminology
  * @dev see https://github.c/ethereum/EIPs/blob/master/EIPS/eip-721.md
  */
-contract PeepethBadges is ERC165, ERC721, ERC721Enumerable, IERC721Metadata, MinterRole, Ownable {
+contract PeepethBadges is ERC165, ERC721, ERC721Enumerable, IERC721Metadata, MinterRole, Ownable, Strings {
   // Mapping from token ID to badge
   mapping (uint256 => uint256) private _tokenBadges;
 
@@ -1156,9 +1155,9 @@ contract PeepethBadges is ERC165, ERC721, ERC721Enumerable, IERC721Metadata, Min
    */
   function tokenURI(uint256 tokenId) external view returns (string memory) {
     require(_exists(tokenId), "PeepethBadges: get URI for nonexistent token");
-    return Strings.Concatenate(
+    return Concatenate(
       baseTokenURI(),
-      Strings.UintToString(tokenId)
+      UintToString(tokenId)
     );
   }
 

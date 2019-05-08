@@ -1,8 +1,7 @@
-pragma solidity 0.5.7;
+pragma solidity 0.5.8;
 
-library Strings {
+contract Strings {
   // via https://github.com/oraclize/ethereum-api/blob/master/oraclizeAPI_0.5.sol MIT licence
-  
   function Concatenate(string memory a, string memory b) public pure returns (string memory concatenatedString) {
     bytes memory bytesA = bytes(a);
     bytes memory bytesB = bytes(b);
@@ -16,13 +15,13 @@ library Strings {
     for (index = 0; index < bytesB.length; index++) {
       bytesAB[concatendatedIndex++] = bytesB[index];
     }
-      
+
     return string(bytesAB);
   }
 
   function UintToString(uint value) public pure returns (string memory uintAsString) {
     uint tempValue = value;
-    
+
     if (tempValue == 0) {
       return "0";
     }

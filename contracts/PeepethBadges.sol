@@ -1,4 +1,4 @@
-pragma solidity 0.5.7;
+pragma solidity 0.5.8;
 
 import "./Strings.sol";
 import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
@@ -14,7 +14,7 @@ import "openzeppelin-solidity/contracts/introspection/ERC165.sol";
  * Moreover, it includes approve all functionality using operator terminology
  * @dev see https://github.c/ethereum/EIPs/blob/master/EIPS/eip-721.md
  */
-contract PeepethBadges is ERC165, ERC721, ERC721Enumerable, IERC721Metadata, MinterRole, Ownable {
+contract PeepethBadges is ERC165, ERC721, ERC721Enumerable, IERC721Metadata, MinterRole, Ownable, Strings {
   // Mapping from token ID to badge
   mapping (uint256 => uint256) private _tokenBadges;
 
@@ -78,9 +78,9 @@ contract PeepethBadges is ERC165, ERC721, ERC721Enumerable, IERC721Metadata, Min
    */
   function tokenURI(uint256 tokenId) external view returns (string memory) {
     require(_exists(tokenId), "PeepethBadges: get URI for nonexistent token");
-    return Strings.Concatenate(
+    return Concatenate(
       baseTokenURI(),
-      Strings.UintToString(tokenId)
+      UintToString(tokenId)
     );
   }
 
